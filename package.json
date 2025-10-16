@@ -1,0 +1,9 @@
+{
+  "name": "missions-vercel",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "nodemailer": "^6.9.12",
+    "pdf-lib": "^1.17.1"
+  }
+}
