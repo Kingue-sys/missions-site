@@ -1,4 +1,4 @@
-// api/send-character.js
+// api/send-character.js (patched: returns accepted/rejected)
 const nodemailer = require('nodemailer');
 
 function base64ToBuffer(dataUrl) {
@@ -91,7 +91,14 @@ module.exports = async (req, res) => {
       attachments
     });
 
-    res.status(200).json({ ok: true, messageId: info.messageId });
+    console.log('MAIL accepted:', info.accepted, 'rejected:', info.rejected);
+
+    res.status(200).json({
+      ok: true,
+      messageId: info.messageId,
+      accepted: info.accepted || [],
+      rejected: info.rejected || []
+    });
   } catch (e) {
     console.error(e);
     res.status(500).json({ ok: false, error: e?.message || String(e) });
