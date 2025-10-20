@@ -1,9 +1,11 @@
 {
-  "name": "missions-vercel",
+  "name": "missions-site",
   "private": true,
-  "type": "module",
+  "scripts": {
+    "build": "echo \"static\"",
+    "start": "vercel dev"
+  },
   "dependencies": {
-    "nodemailer": "^6.9.12",
-    "pdf-lib": "^1.17.1"
+    "nodemailer": "^6.9.13"
   }
 }
