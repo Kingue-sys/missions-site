@@ -169,9 +169,11 @@
         }
         updateInvCount();
       }
+
       function updateInvCount(){
         const used = Array.from(grid.children).filter(c=>c.textContent.trim()).length;
-        invCount.textContent = used; invLimit.textContent = 12;
+        if (invCount) invCount.textContent = used;
+        if (invLimit) invLimit.textContent = 12;
       }
 
       const LS_PITCH='MISSIONS_PITCH', LS_BG='MISSIONS_BG';
