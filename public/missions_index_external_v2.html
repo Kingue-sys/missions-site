@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GN MISSIONS – Création du personnage</title>
+  <link rel="icon" href="data:,">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <style>
+    :root{--ink:#e7e3d9;--bg:#0c1423;--panel:#111a2a;--frame:#6a6a63;--accent:#c92f2f;--grid:#51514c;--slot:#0b1530;
+      --font:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;--mono:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;--ocr:'Share Tech Mono',monospace}
+    *{box-sizing:border-box} html,body{height:100%} body{margin:0;background:linear-gradient(#0a1120,#070b14);color:var(--ink);font-family:var(--font)}
+    .page{display:grid;grid-template-columns:420px 1fr;gap:12px;min-height:100vh;padding:12px}
+    .card{background:#0b1426;border:1px solid #1e2a3f;border-radius:14px;box-shadow:0 0 0 1px #0b1220 inset,0 8px 24px rgba(0,0,0,.35)}
+    .card .head{padding:10px 16px;border-bottom:1px solid #1e2a3f;display:flex;align-items:center;justify-content:space-between}
+    .status{font:12px var(--mono);opacity:.8}
+    .card h2{margin:0;font-size:18px;letter-spacing:.5px;text-transform:uppercase;color:#cfd8ff}
+    .card .body{padding:14px 16px} label{font-size:13px;opacity:.95;display:block;margin:8px 0 6px}
+    select,textarea,input[type="search"],input[type="email"],input[type="text"],input[type="tel"],input[type="date"]{width:100%;padding:10px 12px;border-radius:10px;border:1px solid #2a3a58;background:#0b1222;color:var(--ink);font:14px/1.2 var(--mono)}
+    input[type="file"]{width:100%}
+    button{appearance:none;border:1px solid #2a3a58;color:#e7edf9;background:#0f1930;border-radius:10px;padding:9px 12px;font-weight:600;cursor:pointer}
+    .btn-row{display:flex;gap:8px;flex-wrap:wrap}.btn-primary{background:#162543;border-color:#284a7a}.btn-ghost{background:#0b1222}
+    .limit{font:12px var(--mono);opacity:.85}.stack{display:flex;gap:8px;flex-wrap:wrap}
+    .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid #2a3a58;border-radius:999px;background:#0c1730;font:13px var(--mono)}
+    .chip.craft{border-color:#58c79e}.chip .type{opacity:.8;font-size:.85em}
+    .tooltip{position:relative}.tooltip:hover::after{content:attr(data-tip);position:absolute;left:0;bottom:calc(100% + 6px);background:#0d1528;color:#dfe8ff;border:1px solid #2a3a58;border-radius:8px;padding:6px 8px;white-space:pre-wrap;width:max-content;max-width:260px;font:12px/1.2 var(--mono);box-shadow:0 6px 16px rgba(0,0,0,.45);z-index:10}
+    .row{display:grid;grid-template-columns:1fr;gap:8px}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .previewWrap{position:relative;width:100%;min-height:980px;background:#0b0f1f;border:1px solid #2a3a58;border-radius:14px;overflow:visible;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05)}
+    .re1{position:relative;padding:12px;background:#061024;color:#ddd;font-family:var(--mono);display:grid;grid-template-columns:170px 1fr;grid-template-rows:auto auto auto auto auto;gap:12px;align-content:stretch}
+    .portrait{width:150px;height:150px;border:2px solid var(--frame);background:#0c1426 center/cover no-repeat;display:grid;place-items:center;grid-column:1;grid-row:1 / span 2;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+    .topTabs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:center}
+    .tab{height:40px;border:2px solid var(--accent);background:linear-gradient(#3b0f10,#2a0a2a);display:flex;align-items:center;justify-content:center;padding:6px 8px;font:14px var(--ocr);color:#ffe7e7;letter-spacing:.5px;text-transform:uppercase;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+    .summary{grid-column:2;grid-row:2;border:2px solid var(--frame);background:#0a0f18;padding:28px 8px 8px;position:relative;min-height:86px}
+    .cond{grid-column:1 / span 2;grid-row:3;min-height:120px;border:2px solid var(--frame);background:#0a1914;position:relative;padding:28px 8px 8px}
+    .itemsPanel{grid-column:1 / span 2;grid-row:4;border:2px solid var(--frame);background:#0a1031;padding:28px 8px 8px;position:relative}
+    .grid{display:grid;grid-template-columns:repeat(6,96px);grid-template-rows:repeat(2,108px);gap:12px;justify-content:center;align-content:start}
+    .slot{border:2px solid var(--grid);background:#0b1530;width:96px;height:108px;display:grid;grid-template-rows:72px 1fr;place-items:center;color:#cfe;padding:4px 2px}
+    .slotImg{width:64px;height:64px;background:#0c1426 center/contain no-repeat;border:1px solid #2a3a58;border-radius:6px}
+    .slotLbl{font:11px var(--mono);text-align:center;opacity:.9}
+    .bgBottom{grid-column:1 / span 2;grid-row:5;min-height:260px;border:2px solid var(--frame);background:#08112a;padding:28px 10px 10px;line-height:1.4;position:relative}
+    .panelTitle{position:absolute;top:6px;left:8px;background:linear-gradient(#8a1b1b,#5e1111);border:1px solid #a22a2a;border-radius:4px;padding:2px 8px;color:#ffebeb;font:700 12px var(--ocr);letter-spacing:.6px;text-transform:uppercase}
+    #summaryText,#bgContent{white-space:pre-wrap}
+    .refQR{position:absolute; top:8px; right:8px; display:flex; gap:12px; align-items:center;}
+    .refBadge{border:1px solid #a22a2a; background:#2a0a0a; color:#ffdede; font:700 12px var(--ocr); padding:6px 8px; border-radius:6px;}
+    #qrCanvas{width:88px;height:88px;border:1px solid #2a3a58;background:#0b1222}
+    .snackbar{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0b1222;border:1px solid #2a3a58;border-radius:10px;padding:10px 14px;font:13px var(--mono);opacity:0;transition:.3s;pointer-events:none}
+    .snackbar.show{opacity:1}
+    .hp{position:absolute; left:-5000px; height:0; width:0; overflow:hidden;}
+    .itemList{display:grid;grid-template-columns:64px 1fr;gap:8px;align-items:center;border:1px solid #2a3a58;border-radius:10px;padding:8px;background:#0b1222;cursor:pointer}
+    .itemThumb{width:64px;height:64px;background:#0c1426 center/cover no-repeat;border:1px solid #2a3a58;border-radius:8px}
+    .itemName{font:13px var(--mono)}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <section class="card" id="controls">
+      <div class="head">
+        <h2>Configuration PJ</h2>
+        <div class="status" id="status">Init…</div>
+      </div>
+      <div class="body">
+        <label for="character">Choix du personnage</label>
+        <select id="character"></select>
+
+        <hr style="border:none;border-top:1px solid #1e2a3f;margin:14px 0" />
+
+        <div class="two">
+          <div>
+            <label for="lastName">Nom</label>
+            <input id="lastName" type="text" placeholder="DUPONT">
+          </div>
+          <div>
+            <label for="firstName">Prénom</label>
+            <input id="firstName" type="text" placeholder="Alice">
+          </div>
+        </div>
+
+        <div class="two">
+          <div>
+            <label for="birthdate">Date de naissance</label>
+            <input id="birthdate" type="text" placeholder="jj/mm/aaaa">
+          </div>
+          <div>
+            <label for="phone">Téléphone</label>
+            <input id="phone" type="tel" placeholder="+33 6 12 34 56 78">
+          </div>
+        </div>
+
+        <div class="row">
+          <label for="address">Adresse postale</label>
+          <textarea id="address" rows="2" placeholder="12 rue de ... 75000 PARIS"></textarea>
+        </div>
+
+        <div class="two">
+          <div>
+            <label for="discord">ID Discord</label>
+            <input id="discord" type="text" placeholder="Pseudo#1234 ou @pseudo">
+          </div>
+          <div>
+            <label for="facebook">ID Facebook</label>
+            <input id="facebook" type="text" placeholder="facebook.com/…">
+          </div>
+        </div>
+
+        <label for="playerEmail">Email du joueur (pour recevoir la fiche)</label>
+        <input id="playerEmail" type="email" placeholder="prenom.nom@email.com" autocomplete="email" />
+
+        <label for="playerPhoto">Photo identité (JPG/PNG, max 5 Mo) — obligatoire</label>
+        <input id="playerPhoto" type="file" accept="image/jpeg,image/png" />
+
+        <label style="display:flex;gap:.5rem;align-items:start;margin-top:.5rem">
+          <input id="consentPhoto" type="checkbox" />
+          <span>J’autorise l’usage de ma photo pour l’organigramme du GN.</span>
+        </label>
+
+        <div class="hp"><input id="website" type="text" autocomplete="off" /></div>
+
+        <hr style="border:none;border-top:1px solid #1e2a3f;margin:14px 0" />
+
+        <label for="search">Recherche de compétence</label>
+        <input id="search" type="search" placeholder="Rechercher une compétence…">
+        <label>Compétences (<span id="skillCount">0</span>/<span id="skillLimit">0</span>)</label>
+        <div id="skills" class="stack"></div>
+        <div id="skillHint" class="limit"></div>
+
+        <hr style="border:none;border-top:1px solid #1e2a3f;margin:14px 0" />
+
+        <label>Catalogue d’items</label>
+        <div id="itemsList" class="stack" style="flex-direction:column"></div>
+
+        <div class="btn-row" style="margin-top:12px">
+          <button id="createCharacterBtn" class="btn-primary">Créer ton personnage</button>
+          <button id="saveDraftBtn" class="btn-ghost">Sauver brouillon</button>
+          <button id="loadDraftBtn" class="btn-ghost">Reprendre brouillon</button>
+          <button id="clearDraftBtn" class="btn-ghost">Effacer brouillon</button>
+        </div>
+
+        <div id="copyInfo" class="limit" style="margin-top:8px"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="head"><h2>Expérience et Expédition</h2></div>
+      <div class="body">
+        <div class="previewWrap" id="capture">
+          <div class="re1">
+            <div class="portrait" id="portrait"><span>Portrait du personnage</span></div>
+            <div class="topTabs">
+              <div class="tab" id="nameSlot">NOM et PRENOM du personnage</div>
+              <div class="tab" id="jobSlot">METIER DU PERSONNAGE</div>
+              <div class="tab" id="traitSlot">TRAIT DE CARACTERE DU PJ</div>
+            </div>
+            <div class="summary">
+              <div class="panelTitle">Pitch du personnage</div>
+              <div id="summaryText"></div>
+            </div>
+            <div class="cond">
+              <div class="panelTitle">Compétences</div>
+              <div id="desc">Compétences sélectionnées : aucune.</div>
+            </div>
+            <aside class="itemsPanel">
+              <div class="panelTitle">Inventaire</div>
+              <div class="grid" id="grid"></div>
+            </aside>
+            <div class="bgBottom">
+              <div class="panelTitle">BG</div>
+              <div id="bgContent">Proposition de Background du personnage écrit par le Joueur</div>
+              <div class="refQR">
+                <div class="refBadge">Ref: <span id="refCode">MISSIONS-YYYY-0000</span></div>
+                <canvas id="qrCanvas" width="88" height="88"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js" defer></script>
+  <script src="./missions_app_v2.js?v=4" defer></script>
+</body>
+</html>
