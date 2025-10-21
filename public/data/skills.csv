@@ -1,0 +1,5 @@
+key,Nom,Categorie,Type,Effets,Duree,Modalites,AllowedFor,AllowedGroups
+tir_n1,Tir [N1],Combat,actif,Armes basiques,,,
+assault_rifle,Armes d’assaut,Combat,actif,Fusils d’assaut,,,"ALFRED_AUBERTIN",Militaire
+discretion,Discrétion,Opération,passif,Silencieux,Scène,,,
+premiers_soins,Premiers secours,Médical,actif,Soin léger,,Sur cible,,
